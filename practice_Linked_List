@@ -1,0 +1,151 @@
+import java.util.*;
+class Node
+{
+    int val;
+    Node prev;
+    Node next;
+    Node(int val)
+    {
+        this.val=val;
+        prev=next=null;
+    }
+    
+    public static Node ConvertAnArray(int arr[])
+    {
+        Node head=new Node(arr[0]);
+        
+        Node temp=head;
+        
+        for(int i=1;i<arr.length;i++)
+        {
+            Node new1=new Node(arr[i]);
+            temp.next=new1;
+            new1.prev=temp;
+            temp=temp.next;
+        }
+        
+        return head;
+    }
+    public static void print(Node head)
+    {
+        Node temp=head;
+        
+        while(temp!=null)
+        {
+            System.out.print(temp.val+"->");
+            temp=temp.next;
+        }
+    }
+    public static Node addAtHead(Node head,int data)
+    {
+        Node temp=head;
+        Node new1=new Node(data);
+        
+        new1.next=temp;
+        temp.prev=new1;
+        
+        return new1;
+    }
+    
+    public static Node addAtTail(Node head,int data)
+    {
+        Node temp=head;
+        Node new1=new Node(data);
+        
+        while(temp.next!=null)
+        {
+            temp=temp.next;
+        }
+        
+        temp.next=new1;
+        new1.prev=temp;
+        
+        return head;
+    }
+    
+    public static Node DeleteAtHead(Node head)
+    {
+        if(head==null)
+        {
+            return null;
+        }
+        Node temp=head;
+        
+        
+        Node val=temp.next;
+        
+        val.prev=null;
+        temp.next=null;
+        
+        return val;
+    }
+    
+    public static Node DeleteAtTail(Node head)
+    {
+        if(head==null)
+        {
+            return null;
+        }
+        Node temp=head;
+        
+        while(temp.next.next!=null)
+        {
+            temp=temp.next;
+        }
+        temp.next.prev=null;
+        temp.next=null;
+        
+        
+        return head;
+    }
+    public static Node insertAtPosition(Node head, int pos, int val)
+    {
+        if(head==null)
+        {
+            return null;
+        }
+        Node temp=head;
+        
+        Node new1=new Node(val);
+        int ct=0;
+        
+        while(temp.next!=null)
+        {
+            if(ct==pos-1)
+            {
+                new1.prev=temp;
+                new1.next=temp.next;
+                temp.next=new1;
+            }
+            else
+            {
+                temp=temp.next;
+            }
+            ct++;
+            
+        }
+        return head;
+    }
+    
+    public static void main(String args[])
+    {
+        int arr[]={1,2,3,4,5,6};
+        Node hh=ConvertAnArray(arr);
+        print(hh);
+        System.out.println();
+        Node hs=addAtHead(hh,10);
+        print(hs);
+        System.out.println();
+        Node hs1=addAtTail(hs,20);
+        print(hs1);
+        System.out.println();
+        Node hs2=DeleteAtHead(hs1);
+        print(hs2);
+        System.out.println();
+        Node ss=DeleteAtTail(hs2);
+        print(ss);
+        System.out.println();
+        Node qq=insertAtPosition(ss,2,100);
+        print(qq);
+    }
+}
